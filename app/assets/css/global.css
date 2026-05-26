@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Cairo', sans-serif;
+  --color-accent-start: #0B9E89;
+  --color-accent-end: #80EADB;
+  --color-card: #083A33;
+  --color-teal: #44BFAD;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Cairo', sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gradient-text {
+  background: linear-gradient(180deg, #0B9E89 0%, #80EADB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(180deg, #0B9E89 0%, #80EADB 100%);
+}
+
+.page-bg {
+  background: linear-gradient(280.19deg, #000205 42.66%, #000408 64.74%, #002A24 99.29%);
+}
