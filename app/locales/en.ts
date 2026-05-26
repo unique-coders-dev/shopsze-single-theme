@@ -169,6 +169,46 @@ export default {
       'Quick setup in 5 minutes',
     ],
   },
+  featuresPage: {
+    breadcrumbHome: 'Home',
+    breadcrumbCurrent: 'Features',
+    heading1: 'Everything you need to manage your store',
+    headingHighlight: 'in one platform',
+    subtitle: 'A comprehensive set of powerful features to help you succeed in e-commerce',
+    productMgmt: {
+      title: 'Product Management',
+      subtitle: 'An advanced system to manage your products easily and efficiently',
+      items: [
+        'Add unlimited products',
+        'Support for multiple images per product',
+        'Manage variants (colors, sizes, etc.)',
+        'Categories and brands',
+        'Automatic inventory management',
+      ],
+      stats: {
+        sales: 'Sales increase',
+        ordersToday: "Today's orders",
+        products: 'Products',
+        activeCustomers: 'Active customers',
+      },
+    },
+    orderMgmt: {
+      title: 'Order Management',
+      subtitle: 'Track and manage all your orders from one place with an integrated system for statuses, invoices and notifications',
+      items: [
+        'Track orders from start to finish',
+        'Manage order statuses flexibly',
+        'Issue invoices automatically',
+        'Instant notifications for customers and admins',
+        'Analyze processing times and performance',
+      ],
+      stats: {
+        delivered: 'Delivered',
+        newOrder: 'New order',
+        processing: 'Processing',
+      },
+    },
+  },
   footer: {
     desc: 'We are a leading company in providing innovative technical solutions that help our clients achieve their goals and develop their business efficiently.',
     emailCard: {
