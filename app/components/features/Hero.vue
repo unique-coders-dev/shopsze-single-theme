@@ -44,5 +44,36 @@ defineProps<{
 
     <!-- Order Management Section -->
     <FeaturesOrderManagement :t="t" />
+
+    <!-- Reports & Analytics Section -->
+    <FeaturesReports :t="t" />
+
+    <!-- Marketing Tools Section -->
+    <FeaturesMarketing :t="t" />
+
+    <!-- Shipping & Delivery Section -->
+    <FeaturesShipping :t="t" />
+
+    <!-- Payment Gateways Section -->
+    <FeaturesPayments :t="t" />
+
+    <!-- Start Journey CTA -->
+    <div class="w-full bg-white flex justify-center pb-20">
+      <button
+        class="inline-flex items-center justify-center px-7 text-white font-semibold text-[13.5px] hover:opacity-90 transition-opacity"
+        style="background: linear-gradient(180deg, #44BFAD 0%, #548CC9 100%); height: 42px; border-radius: 20px;"
+      >
+        {{ t.featuresPage.startJourney }}
+      </button>
+    </div>
+
+    <!-- Extra Features Section -->
+    <FeaturesExtraFeatures :t="t" />
+
+    <!-- Why Choose Shopze + Ready CTA -->
+    <FeaturesWhyChoose :t="t" />
+
+    <!-- Footer -->
+    <HomeFooter :t="t" />
   </div>
 </template>

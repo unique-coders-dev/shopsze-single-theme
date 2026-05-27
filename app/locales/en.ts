@@ -208,6 +208,98 @@ export default {
         processing: 'Processing',
       },
     },
+    reports: {
+      title: 'Reports & Analytics',
+      subtitle: 'Get deep insights into your store performance with comprehensive reports and precise KPIs for better decisions',
+      items: [
+        'Daily, monthly and yearly sales reports',
+        'Analyze customer behavior and best-selling products',
+        'Key performance indicators (KPIs)',
+        'Ready financial and tax reports',
+        'Future sales forecasts',
+      ],
+      stats: {
+        growth: 'Monthly growth',
+        totalSales: 'Total sales',
+        ordersCount: 'Order count',
+      },
+    },
+    marketing: {
+      title: 'Marketing Tools',
+      subtitle: 'Grow your sales with smart marketing campaigns and attractive promotions with direct integrations',
+      items: [
+        'Create promotional campaigns and special offers',
+        'Target customers based on purchasing behavior',
+        'Integration with Meta Ads and Google Ads',
+        'Analyze and improve campaign performance',
+        'Automatic notifications for offers and discounts',
+      ],
+      stats: {
+        salesIncrease: 'Sales increase',
+        conversionRate: 'Conversion rate',
+        activeCampaigns: 'Active campaigns',
+      },
+    },
+    startJourney: 'Start your journey now',
+    whyChoose: {
+      heading: 'Why choose Shopze?',
+      items: [
+        { title: 'Reliability & Security', desc: 'Advanced protection for your data and payments', emoji: '/images/emoji1.png' },
+        { title: 'High Quality', desc: 'Professional templates and advanced features', emoji: '/images/emoji2.png' },
+        { title: 'Quick Launch', desc: 'Start your store in less than 5 minutes', emoji: '/images/emoji3.png' },
+        { title: 'Ease of Use', desc: 'Simple and easy interface, no technical experience required', emoji: '/images/emoji4.png' },
+      ],
+    },
+    readyCta: {
+      badge: 'A trusted platform used by thousands of merchants in the Arab world',
+      heading: 'Ready to experience all these features?',
+      subtitle: 'Start your 14-day free trial now',
+      btn: 'Create a free store',
+    },
+    extra: {
+      heading: 'Additional Features',
+      subtitle: 'More tools for your store success',
+      items: [
+        { title: 'Mobile App', desc: 'Custom iOS and Android apps' },
+        { title: 'Security', desc: 'Advanced protection and free SSL certificate' },
+        { title: 'Customer Management', desc: 'Comprehensive customer database' },
+        { title: 'Easy Customization', desc: 'Full control over your store design' },
+        { title: 'High Performance', desc: 'Optimized performance and fast loading' },
+        { title: 'Multi-language', desc: 'Arabic, English and more support' },
+      ],
+    },
+    payments: {
+      title: 'Payment Gateways',
+      subtitle: 'Give your customers a smooth and secure payment experience with support for all popular local and global methods',
+      items: [
+        'Support for global Stripe and PayPal',
+        'Tabby integration for installment payments',
+        'Apple Pay and Google Pay support',
+        'Cash on delivery option',
+        '40% higher conversion rates',
+      ],
+      stats: {
+        salesGrowth: 'Sales growth',
+        dailyTransactions: 'Daily transactions',
+        successRate: 'Success rate',
+      },
+    },
+    shipping: {
+      title: 'Shipping & Delivery',
+      subtitle: 'Fully automate shipping operations with integrations to the best carriers and real-time order tracking',
+      items: [
+        'Integration with local and international carriers',
+        'Track orders and shipments in real time',
+        'Multiple shipping options for customers',
+        'Automatically calculate expected delivery times',
+        'Detailed reports on shipping performance',
+      ],
+      stats: {
+        deliveryRate: 'Delivery rate',
+        dailyShipments: 'Daily shipments',
+        onTheWay: 'On the way',
+      },
+    },
   },
   footer: {
     desc: 'We are a leading company in providing innovative technical solutions that help our clients achieve their goals and develop their business efficiently.',
