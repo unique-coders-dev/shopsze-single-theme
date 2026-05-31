@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import type { Translations } from '~/composables/useLocale'
 
-defineProps<{
+withDefaults(defineProps<{
   t: Translations
-}>()
+  hideHeader?: boolean
+  hideViewMore?: boolean
+  showDownloads?: boolean
+  background?: string
+}>(), {
+  hideHeader: false,
+  hideViewMore: false,
+  showDownloads: false,
+  background: '#F5FAFF',
+})
 </script>
 
 <template>
-  <section class="w-full" style="background: #F5FAFF;">
+  <section class="w-full" :style="`background: ${background};`">
     <div class="max-w-[1180px] mx-auto px-6 py-20">
       <!-- Heading -->
-      <div class="text-center mb-12">
+      <div v-if="!hideHeader" class="text-center mb-12">
         <h2 class="font-bold text-[#0F1B2D] leading-tight" style="font-size: clamp(1.6rem, 3vw, 2.25rem);">
           {{ t.templates.heading }}
         </h2>
@@ -50,6 +59,11 @@ defineProps<{
               {{ card.desc }}
             </p>
 
+            <!-- Downloads -->
+            <p v-if="showDownloads" class="text-[12px] font-semibold mt-2" style="color: #0B9E89;">
+              890 {{ t.templatesPage.downloads }}
+            </p>
+
             <!-- Buttons -->
             <div class="flex items-center gap-2 mt-3">
               <button
@@ -74,7 +88,7 @@ defineProps<{
       </div>
 
       <!-- View More Button -->
-      <div class="flex justify-center mt-10">
+      <div v-if="!hideViewMore" class="flex justify-center mt-10">
         <button
           class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-[13px] hover:opacity-90 transition-opacity"
           style="background: #44BFAD;"
