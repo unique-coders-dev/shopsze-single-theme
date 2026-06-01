@@ -8,6 +8,8 @@ const props = defineProps<{
 
 const route = useRoute();
 const isMenuOpen = ref(false);
+const resourcesOpen = ref(false);
+const resourcesRef = ref<HTMLElement | null>(null);
 
 const navItems = computed(() => [
   {
@@ -53,9 +55,27 @@ const isActive = (path: string | null) => {
   return route.path === path || route.path === `${path}/`;
 };
 
+const isResourcesActive = computed(() =>
+  props.t.nav.resourcesDropdown.some(
+    (item) => route.path === `/${props.locale}${item.path}` || route.path === `/${props.locale}${item.path}/`
+  )
+);
+
+const isDropdownItemActive = (itemPath: string) =>
+  route.path === `/${props.locale}${itemPath}` || route.path === `/${props.locale}${itemPath}/`;
+
 const closeMenu = () => {
   isMenuOpen.value = false;
 };
+
+const handleOutsideClick = (e: MouseEvent) => {
+  if (resourcesRef.value && !resourcesRef.value.contains(e.target as Node)) {
+    resourcesOpen.value = false;
+  }
+};
+
+onMounted(() => document.addEventListener("click", handleOutsideClick));
+onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
 </script>
 
 <template>
@@ -82,14 +102,13 @@ const closeMenu = () => {
           v-for="item in navItems"
           :key="item.key"
           class="relative flex flex-col items-center"
+          :ref="item.dropdown ? (el) => { resourcesRef = el as HTMLElement } : undefined"
         >
           <!-- Active dot above item -->
           <span
-            v-if="isActive(item.path)"
+            v-if="isActive(item.path) || (item.dropdown && isResourcesActive)"
             class="absolute -top-[8px] left-1/2 -translate-x-1/2 w-[5px] h-[5px] rounded-full"
-            style="
-              background: linear-gradient(180deg, #0b9e89 0%, #80eadb 100%);
-            "
+            style="background: linear-gradient(180deg, #0b9e89 0%, #80eadb 100%);"
           />
 
           <!-- Linked nav item -->
@@ -106,11 +125,13 @@ const closeMenu = () => {
           <button
             v-else
             class="flex items-center gap-1 px-3 py-1.5 text-[13.5px] font-medium transition-colors duration-200 hover:opacity-80"
-            style="color: #0f1b2d"
+            :style="isResourcesActive ? 'color: #0B9E89;' : 'color: #0f1b2d'"
+            @click.stop="resourcesOpen = !resourcesOpen"
           >
             {{ item.label }}
             <svg
-              class="w-3 h-3 opacity-60 mt-px"
+              class="w-3 h-3 opacity-60 mt-px transition-transform duration-200"
+              :class="resourcesOpen ? 'rotate-180' : ''"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -121,6 +142,27 @@ const closeMenu = () => {
               />
             </svg>
           </button>
+
+          <!-- Resources Dropdown -->
+          <div
+            v-if="item.dropdown && resourcesOpen"
+            class="absolute top-full mt-2 z-50 bg-white py-2 min-w-[180px]"
+            style="border-radius: 14px; box-shadow: 0px 8px 30px rgba(15, 27, 45, 0.12); border: 1px solid #F0F0F0;"
+            :class="locale === 'ar' ? 'right-0' : 'left-0'"
+          >
+            <NuxtLink
+              v-for="(item2, i) in t.nav.resourcesDropdown"
+              :key="i"
+              :to="`/${locale}${item2.path}`"
+              class="flex items-center px-4 py-2.5 text-[13.5px] font-medium transition-colors"
+              :style="isDropdownItemActive(item2.path)
+                ? 'color: #0B9E89; background: #F0FBF8;'
+                : 'color: #0F1B2D;'"
+              :class="isDropdownItemActive(item2.path) ? '' : 'hover:bg-[#F8FAFC] hover:text-[#0B9E89]'"
+            >
+              {{ item2.label }}
+            </NuxtLink>
+          </div>
         </li>
       </ul>
 
@@ -198,26 +240,31 @@ const closeMenu = () => {
     <div
       v-if="isMenuOpen"
       class="md:hidden absolute top-[74px] left-3 right-3 z-50 bg-white p-5 flex flex-col gap-2"
-      style="
-        border-radius: 16px;
-        box-shadow: 0px 12px 30px rgba(15, 27, 45, 0.12);
-        border: 1px solid #efefef;
-      "
+      style="border-radius: 16px; box-shadow: 0px 12px 30px rgba(15, 27, 45, 0.12); border: 1px solid #efefef;"
       :dir="t.dir"
     >
       <NuxtLink
-        v-for="item in navItems"
+        v-for="item in navItems.filter(i => !i.dropdown)"
         :key="item.key"
         :to="item.path || '#'"
         class="block px-3 py-2.5 text-[14px] font-medium rounded-lg transition-colors text-start"
-        :style="
-          isActive(item.path)
-            ? 'color: #0B9E89; background: #F0FBF8;'
-            : 'color: #0F1B2D;'
-        "
+        :style="isActive(item.path) ? 'color: #0B9E89; background: #F0FBF8;' : 'color: #0F1B2D;'"
         @click="closeMenu"
       >
         {{ item.label }}
+      </NuxtLink>
+
+      <!-- Resources items inline in mobile -->
+      <div class="h-px my-1 bg-[#EFEFEF]"></div>
+      <p class="px-3 text-[11px] font-semibold text-[#9CA3AF] uppercase tracking-wide">{{ t.nav.resources }}</p>
+      <NuxtLink
+        v-for="(item2, i) in t.nav.resourcesDropdown"
+        :key="i"
+        :to="`/${locale}${item2.path}`"
+        class="block px-3 py-2.5 text-[14px] font-medium rounded-lg transition-colors text-start text-[#0F1B2D] hover:bg-[#F8FAFC]"
+        @click="closeMenu"
+      >
+        {{ item2.label }}
       </NuxtLink>
 
       <div class="h-px my-2 bg-[#EFEFEF]"></div>
