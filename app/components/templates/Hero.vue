@@ -60,9 +60,6 @@ const activeFilter = ref(props.t.templatesPage.filters[0])
     <!-- Templates Cards -->
     <HomeTemplates :t="t" hide-header hide-view-more show-downloads background="#ffffff" />
 
-    <!-- All Templates Include + Ready CTA -->
-    <TemplatesAllIncludes :locale="locale" :t="t" />
-
     <!-- Footer -->
     <HomeFooter :t="t" />
   </div>
