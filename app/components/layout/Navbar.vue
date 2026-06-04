@@ -9,6 +9,7 @@ const props = defineProps<{
 const route = useRoute();
 const isMenuOpen = ref(false);
 const resourcesOpen = ref(false);
+const mobileResourcesOpen = ref(false);
 const resourcesRef = ref<HTMLElement | null>(null);
 
 const navItems = computed(() => [
@@ -175,7 +176,8 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
       <div class="hidden md:flex items-center gap-3">
         <NuxtLink
           :to="`/${t.otherLocale}`"
-          class="text-[13px] font-semibold text-white hover:opacity-80 transition-opacity duration-200"
+          class="text-[13px] font-semibold hover:opacity-80 transition-opacity duration-200"
+          style="color: white !important;"
         >
           {{ t.lang }}
         </NuxtLink>
@@ -199,7 +201,8 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
       <div class="flex md:hidden items-center gap-3">
         <NuxtLink
           :to="`/${t.otherLocale}`"
-          class="text-[13px] font-semibold text-white hover:opacity-80 transition-opacity"
+          class="text-[13px] font-semibold hover:opacity-80 transition-opacity"
+          style="color: white !important;"
         >
           {{ t.lang }}
         </NuxtLink>
@@ -248,29 +251,58 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
       style="background: #083a33; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);"
       :dir="t.dir"
     >
-      <NuxtLink
-        v-for="item in navItems.filter(i => !i.dropdown)"
-        :key="item.key"
-        :to="item.path || '#'"
-        class="block px-3 py-2.5 text-[14px] font-medium rounded-lg transition-colors text-start"
-        :style="isActive(item.path) ? 'color: #80EADB; background: rgba(11,158,137,0.18);' : 'color: white;'"
-        @click="closeMenu"
-      >
-        {{ item.label }}
-      </NuxtLink>
+      <div v-for="item in navItems" :key="item.key">
+        <!-- Non-dropdown items -->
+        <NuxtLink
+          v-if="!item.dropdown"
+          :to="item.path || '#'"
+          class="block px-3 py-2.5 text-[14px] font-medium rounded-lg transition-colors text-start"
+          :style="isActive(item.path) ? 'color: #80EADB !important; background: rgba(11,158,137,0.18);' : 'color: white !important;'"
+          @click="closeMenu"
+        >
+          {{ item.label }}
+        </NuxtLink>
 
-      <!-- Resources items inline in mobile -->
-      <div class="h-px my-1" style="background: rgba(255,255,255,0.08)"></div>
-      <p class="px-3 text-[11px] font-semibold text-white/40 uppercase tracking-wide">{{ t.nav.resources }}</p>
-      <NuxtLink
-        v-for="(item2, i) in t.nav.resourcesDropdown"
-        :key="i"
-        :to="`/${locale}${item2.path}`"
-        class="block px-3 py-2.5 text-[14px] font-medium rounded-lg transition-colors text-start text-white/80 hover:text-white"
-        @click="closeMenu"
-      >
-        {{ item2.label }}
-      </NuxtLink>
+        <!-- Dropdown item trigger (Resources) -->
+        <div v-else>
+          <button
+            class="w-full flex items-center justify-between px-3 py-2.5 text-[14px] font-medium rounded-lg transition-colors text-start"
+            :style="isResourcesActive ? 'color: #80EADB !important;' : 'color: white !important;'"
+            @click="mobileResourcesOpen = !mobileResourcesOpen"
+          >
+            <span>{{ item.label }}</span>
+            <svg
+              class="w-4 h-4 opacity-75 transition-transform duration-200"
+              :class="mobileResourcesOpen ? 'rotate-180' : ''"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+
+          <!-- Mobile resources dropdown content -->
+          <div
+            v-if="mobileResourcesOpen"
+            class="mt-1 mb-2 ps-6 flex flex-col gap-1 border-s border-white/10 ms-3"
+          >
+            <NuxtLink
+              v-for="(item2, i) in t.nav.resourcesDropdown"
+              :key="i"
+              :to="`/${locale}${item2.path}`"
+              class="block px-3 py-2 text-[13.5px] font-medium rounded-lg transition-colors text-start"
+              :style="isDropdownItemActive(item2.path) ? 'color: #80EADB !important;' : 'color: rgba(255,255,255,0.75) !important;'"
+              @click="closeMenu"
+            >
+              {{ item2.label }}
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
 
       <div class="h-px my-2" style="background: rgba(255, 255, 255, 0.08)"></div>
 
