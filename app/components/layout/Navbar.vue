@@ -175,7 +175,7 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
       <div class="hidden md:flex items-center gap-3">
         <NuxtLink
           :to="`/${t.otherLocale}`"
-          class="text-[13px] font-semibold text-white/70 hover:text-white transition-colors duration-200"
+          class="text-[13px] font-semibold text-white hover:opacity-80 transition-opacity duration-200"
         >
           {{ t.lang }}
         </NuxtLink>
@@ -199,7 +199,7 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
       <div class="flex md:hidden items-center gap-3">
         <NuxtLink
           :to="`/${t.otherLocale}`"
-          class="text-[13px] font-semibold text-white/70 hover:text-white transition-colors"
+          class="text-[13px] font-semibold text-white hover:opacity-80 transition-opacity"
         >
           {{ t.lang }}
         </NuxtLink>
