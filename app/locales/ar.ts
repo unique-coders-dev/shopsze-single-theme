@@ -792,7 +792,7 @@ export default {
     headingHighlight: 'لمتجرك',
     subtitle: 'مجموعة شاملة من المميزات القوية لمساعدتك على النجاح في التجارة الإلكترونية',
     popular: 'الأكثر شعبية',
-    perMonth: 'ريال شهرياً',
+    perMonth: 'شهرياً',
     trialBtn: 'ابدأ التجربة المجانية',
     plans: [
       {

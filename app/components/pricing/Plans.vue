@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import type { Translations } from "~/composables/useLocale";
+import type { Translations, LocaleKey } from "~/composables/useLocale";
 
 defineProps<{
   t: Translations;
+  locale?: LocaleKey;
 }>();
+
+const route = useRoute();
+const currentLocale = computed<LocaleKey>(() =>
+  route.path.startsWith("/en") ? "en" : "ar"
+);
 </script>
 
 <template>
@@ -42,10 +48,21 @@ defineProps<{
             </div>
 
             <!-- Price -->
-            <div class="text-center py-6">
+            <div class="text-center py-6 flex items-center justify-center gap-1.5">
               <span class="font-bold text-[#548CC9]" style="font-size: 32px">{{
                 plan.price
               }}</span>
+              <!-- Saudi Riyal symbol (new SAMA 2025 symbol) -->
+              <svg
+                v-if="currentLocale === 'ar'"
+                class="w-5 h-5"
+                viewBox="0 0 1124.14 1256.39"
+                fill="#548CC9"
+                aria-label="SAR"
+              >
+                <path d="M699.62 1113.02c-20.06 44.48-33.32 92.75-38.4 143.37l424.51-90.24c20.06-44.47 33.31-92.75 38.4-143.37l-424.51 90.24z"/>
+                <path d="M1085.73 895.8c20.06-44.47 33.32-92.75 38.4-143.37l-330.68 70.33v-135.2l292.27-62.11c20.06-44.47 33.33-92.75 38.42-143.37l-330.68 70.27V66.13c-50.67 28.45-95.67 66.32-132.25 110.99v403.35l-132.25 28.11V0c-50.67 28.44-95.67 66.32-132.25 110.99v525.69l-295.91 62.88c-20.06 44.47-33.33 92.75-38.42 143.37l334.33-71.05v170.26l-358.3 76.14c-20.06 44.47-33.32 92.75-38.4 143.37l375.04-79.7c30.53-6.35 56.77-24.4 73.83-49.24l68.78-101.97c7.14-10.55 11.3-23.27 11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28z"/>
+              </svg>
               <span class="text-[#9CA3AF] text-[12.5px] ms-2">{{
                 t.pricingPage.perMonth
               }}</span>
